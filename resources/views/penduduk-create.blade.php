@@ -76,11 +76,8 @@
         var profileInfo = $('#profileInfo');
         var familyInfo = $('#familyInfo');
         var assetInfo = $('#assetInfo');
-        // var id = '{{id}}';
-        // var kkId = '{{kkId}}';
 
         var penduduk = db.collection('penduduk');
-        // var person = penduduk.doc(kkId).collection('anggota').doc(id);
         var storageRef = storage.ref();
 
         var dataContainer = $('#dataContainer');

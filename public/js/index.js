@@ -100,7 +100,7 @@ function pendudukPersonalSave(){
     $(location).attr('href','/penduduk-edit/'+id);
   });
 
-  
+
 }
 
 function anggotaPersonalSave(){
@@ -218,6 +218,7 @@ function pendudukDocumentSave(){
       var kkPhoto = doc.data().foto_kk;
       var coordinate = doc.data().koordinat;
       var document = documents.doc(doc_id);
+      alert($(document).find('[name="kk_number"]').val());
       document.update({
         nomor_kk:$(document).find('[name="kk_number"]').val(),
         provinsi:$(document).find('[name="province"]').val(),
@@ -341,8 +342,3 @@ function saveUser(){
 //     return count;
 //   },3000);
 // }
-
-
-
-
-

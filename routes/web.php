@@ -136,3 +136,4 @@ Route::get('/slum-edit/{id}',function($id){
 Route::get('/slum-history/{prov}/{kota}/{kec}',function($prov,$kota,$kec){
 	return view('slum-history',['prov'=>$prov,'kota'=>$kota,'kec'=>$kec]);
 });
+Route::get('getpenduduk/{nik}', 'ApiController@getDataPenduduk');
