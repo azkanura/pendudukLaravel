@@ -807,8 +807,8 @@ async defer></script>
                             {title:'Nomor Kartu Keluarga', content:data.nomor_kk,type:'input',name:'kk_number'},
                             {title:'Provinsi', content:data.provinsi,type:'select',name:'province'},
                             {title:'Kota / Kabupaten', content:data.kota,type:'select',name:'city'},
-                            {title:'Kecamatan', content:data.kecamatan,type:'select',name:'district'},
-                            {title:'Kelurahan', content:data.kelurahan,type:'select',name:'subdistrict'},
+                            {title:'Kecamatan', content:data.kecamatan,type:'select',name:'districtDoc'},
+                            {title:'Kelurahan', content:data.kelurahan,type:'select',name:'subdistrictDoc'},
                             {title:'RW', content:data.rw,type:'input',name:'rw'},
                             {title:'RT', content:data.rt,type:'input',name:'rt'},
                             {title:'Alamat', content:data.alamat,type:'input',name:'address'}
@@ -867,6 +867,26 @@ async defer></script>
           var options = '';
           var select = $(document).find('select[name="district"]');
           var selectSubdistrict = $(document).find('select[name="subdistrict"]');
+          selectSubdistrict.html('');
+          if(select.val()=='Kepulauan Seribu Selatan'){
+            subdistrictOptionS.forEach((option)=>{
+              options+='<option>'+option+'</option>';
+            });
+            selectSubdistrict.append(options);
+          }
+          else if (select.val()=='Kepulauan Seribu Utara') {
+            console.log(subdistrictOptionU);
+            subdistrictOptionU.forEach((option)=>{
+              options+='<option>'+option+'</option>';
+            });
+            selectSubdistrict.append(options);
+          }
+        });
+
+        $(document).on('change','select[name="districtDoc"]',function(){
+          var options = '';
+          var select = $(document).find('select[name="districtDoc"]');
+          var selectSubdistrict = $(document).find('select[name="subdistrictDoc"]');
           selectSubdistrict.html('');
           if(select.val()=='Kepulauan Seribu Selatan'){
             subdistrictOptionS.forEach((option)=>{
@@ -1048,7 +1068,7 @@ async defer></script>
                case 'city':
                   options+='<option selected>Kab. Kepulauan Seribu</option>';
                   break;
-               case 'district':
+               case 'districtDoc':
                   districtOption.forEach((option)=>{
                     if(option.toLowerCase()==item.content.toLowerCase()){
                       options+='<option selected>'+option+'</option>';
@@ -1058,7 +1078,7 @@ async defer></script>
                     }
                   });
                   break;
-              case 'subdistrict':
+              case 'subdistrictDoc':
                   if(kecamatan=='Kepulauan Seribu Selatan'){
                     subdistrictOptionS.forEach((option)=>{
                       if(option.toLowerCase()==item.content.toLowerCase()){
@@ -1069,7 +1089,7 @@ async defer></script>
                       }
                     });
                   }
-                  else if (data.kecamatan=='Kepulauan Seribu Utara') {
+                  else if (kecamatan=='Kepulauan Seribu Utara') {
                     subdistrictOptionU.forEach((option)=>{
                       if(option.toLowerCase()==item.content.toLowerCase()){
                         options+='<option selected>'+option+'</option>';
@@ -1239,8 +1259,8 @@ async defer></script>
         var provinsiDoc = $(document).find('[name="province"]').val();
         var kotaDoc = $(document).find('[name="city"]').val();
         var nomorKKDoc = $(document).find('[name="kk_number"]').val();
-        var kecDoc = $(document).find('[name="district"]').val();
-        var kelDoc = $(document).find('[name="subdistrict"]').val();
+        var kecDoc = $(document).find('[name="districtDoc"]').val();
+        var kelDoc = $(document).find('[name="subdistrictDoc"]').val();
         var rwDoc = $(document).find('[name="rw"]').val();
         var rtDoc = $(document).find('[name="rt"]').val();
         var alamatDoc = $(document).find('[name="address"]').val();
