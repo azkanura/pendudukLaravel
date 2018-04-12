@@ -136,6 +136,7 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuZNWjvPHba3Trl2m_pNSPmYxRjxK8AR4"
 async defer></script>
     <script type="text/javascript">
+
         var profileInfo = $('#profileInfo');
         var familyInfo = $('#familyInfo');
         var assetInfo = $('#assetInfo');
@@ -874,6 +875,7 @@ async defer></script>
             selectSubdistrict.append(options);
           }
           else if (select.val()=='Kepulauan Seribu Utara') {
+            console.log(subdistrictOptionU);
             subdistrictOptionU.forEach((option)=>{
               options+='<option>'+option+'</option>';
             });
@@ -975,80 +977,90 @@ async defer></script>
           });
         });
 
-        function init(){
-          $('#profileInfoBtn').click();
-        }
+      function init(){
+        $('#profileInfoBtn').click();
+      }
+      function contains(array,string){
+        var contain = false;
+        array.forEach((item)=>{
+          if(item.toLowerCase()==string.toLowerCase()){
+            contain = true;
+            return contain;
+          }
+        });
+        return contain;
+      }
 
-        function contains(array,string){
-          var contain = false;
-          array.forEach((item)=>{
-            if(item.toLowerCase()==string.toLowerCase()){
-              contain = true;
-              return contain;
-            }
+      function addData(id,name,count){
+          dataContainer.append(
+          '<tr>'+
+              '<th  scope="row">'+counter+'</th>'+
+              '<td><a href="/penduduk-detail/'+id+'">'+name+'</a></td>'+
+              '<td>'+count+'</td>'+
+          '</tr>'
+          );
+          counter++;
+      }
+
+      function initMap(coordinate,content){
+          var map = new google.maps.Map(document.getElementById('map'),{
+            center: coordinate,
+            zoom: 10
           });
-          return contain;
-        }
 
-        function addData(id,name,count){
-            dataContainer.append(
-            '<tr>'+
-                '<th  scope="row">'+counter+'</th>'+
-                '<td><a href="/penduduk-detail/'+id+'">'+name+'</a></td>'+
-                '<td>'+count+'</td>'+
-            '</tr>'
-            );
-            counter++;
-        }
+          var marker = new google.maps.Marker({
+            position:coordinate,
+            map:map,
+            draggable:true,
+            animation: google.maps.Animation.DROP,
+            // position:results[0].geometry.location
+            // icon:'/images/marker.png'
+          });
 
-        function initMap(coordinate,content){
-            var map = new google.maps.Map(document.getElementById('map'),{
-              center: coordinate,
-              zoom: 10
-            });
+          google.maps.event.addListener(marker,'dragend',function(){
+              var geolocation = marker.getPosition();
+              var inputGeo = $(document).find('input[name="geolocation"]');
 
-            var marker = new google.maps.Marker({
-              position:coordinate,
-              map:map,
-              draggable:true,
-              animation: google.maps.Animation.DROP,
-              // position:results[0].geometry.location
-              // icon:'/images/marker.png'
-            });
+              inputGeo.val(geolocation.lat()+','+geolocation.lng());
 
-            google.maps.event.addListener(marker,'dragend',function(){
-                var geolocation = marker.getPosition();
-                var inputGeo = $(document).find('input[name="geolocation"]');
+              console.log(inputGeo.val());
+          });
 
-                inputGeo.val(geolocation.lat()+','+geolocation.lng());
+          var infoWindow = new google.maps.InfoWindow({
+            content:content
+          });
 
-                console.log(inputGeo.val());
-            });
+          marker.addListener('click',function(){
+            infoWindow.open(map,marker);
+          });
+      }
 
-            var infoWindow = new google.maps.InfoWindow({
-              content:content
-            });
-
-            marker.addListener('click',function(){
-              infoWindow.open(map,marker);
-            });
-        }
-
-        function getDocEditor(arrayData,kecamatan){
-          var toAppend = '';
-          arrayData.forEach((item)=>{
-            var input = '';
-             if(item.type=='select'){
-               var options='';
-               switch(item.name){
-                 case 'province':
-                    options+='<option selected>Dki Jakarta</option>';
-                    break;
-                 case 'city':
-                    options+='<option selected>Kab. Kepulauan Seribu</option>';
-                    break;
-                 case 'district':
-                    districtOption.forEach((option)=>{
+      function getDocEditor(arrayData,kecamatan){
+        var toAppend = '';
+        arrayData.forEach(function(item){
+          var input = '';
+           if(item.type=='select'){
+             var options='';
+             switch(item.name){
+               case 'province':
+                  options+='<option selected>Dki Jakarta</option>';
+                  break;
+               case 'city':
+                  options+='<option selected>Kab. Kepulauan Seribu</option>';
+                  break;
+               case 'district':
+                  districtOption.forEach((option)=>{
+                    if(option.toLowerCase()==item.content.toLowerCase()){
+                      options+='<option selected>'+option+'</option>';
+                    }
+                    else{
+                      options+='<option>'+option+'</option>';
+                    }
+                  });
+                  break;
+              case 'subdistrict':
+                  if(kecamatan=='Kepulauan Seribu Selatan'){
+                    subdistrictOptionS.forEach((option)=>{
                       if(option.toLowerCase()==item.content.toLowerCase()){
                         options+='<option selected>'+option+'</option>';
                       }
@@ -1056,73 +1068,215 @@ async defer></script>
                         options+='<option>'+option+'</option>';
                       }
                     });
-                    break;
-                case 'subdistrict':
-                    if(kecamatan=='Kepulauan Seribu Selatan'){
-                      subdistrictOptionS.forEach((option)=>{
-                        if(option.toLowerCase()==item.content.toLowerCase()){
-                          options+='<option selected>'+option+'</option>';
-                        }
-                        else{
-                          options+='<option>'+option+'</option>';
-                        }
-                      });
-                    }
-                    else if (data.kecamatan=='Kepulauan Seribu Utara') {
-                      subdistrictOptionU.forEach((option)=>{
-                        if(option.toLowerCase()==item.content.toLowerCase()){
-                          options+='<option selected>'+option+'</option>';
-                        }
-                        else{
-                          options+='<option>'+option+'</option>';
-                        }
-                      });
-                    }
-                    else{
-                      subdistrictOptionS.forEach((option)=>{
-                        if(option.toLowerCase()==item.content.toLowerCase()){
-                          options+='<option selected>'+option+'</option>';
-                        }
-                        else{
-                          options+='<option>'+option+'</option>';
-                        }
-                      });
-                    }
-               }
-               input = '<select name="'+item.name+'" class="form-control">'+options+'</select>';
+                  }
+                  else if (data.kecamatan=='Kepulauan Seribu Utara') {
+                    subdistrictOptionU.forEach((option)=>{
+                      if(option.toLowerCase()==item.content.toLowerCase()){
+                        options+='<option selected>'+option+'</option>';
+                      }
+                      else{
+                        options+='<option>'+option+'</option>';
+                      }
+                    });
+                  }
+                  else{
+                    subdistrictOptionS.forEach((option)=>{
+                      if(option.toLowerCase()==item.content.toLowerCase()){
+                        options+='<option selected>'+option+'</option>';
+                      }
+                      else{
+                        options+='<option>'+option+'</option>';
+                      }
+                    });
+                  }
+             }
+             input = '<select name="'+item.name+'" class="form-control">'+options+'</select>';
 
-             }
-             else{
-               input='<input class="form-control" value="'+item.content+'" name="'+item.name+'">'
-             }
-              toAppend+='<div class="row form-group">'+
-                          '<label class="control-label col-md-5">'+item.title+'</label>'+
-                          '<p class="col-md-7">'
-                              +input+
-                          '</p>'+
-                      '</div>';
+           }
+           else{
+             input='<input class="form-control" value="'+item.content+'" name="'+item.name+'">'
+           }
+            toAppend+='<div class="row form-group">'+
+                        '<label class="control-label col-md-5">'+item.title+'</label>'+
+                        '<p class="col-md-7">'
+                            +input+
+                        '</p>'+
+                    '</div>';
+        });
+        return toAppend;
+      }
+
+      function getMapArea(coordinateText){
+        return '<div class="row form-group">'+
+                    '<input type="hidden" name="geolocation" value="'+coordinateText+'">'+
+                    '<label class="control-label col-md-12">Lokasi di Peta</label><br><br>'+
+                    '<div id="map" class="col-md-12"style="width:100%;height:300px"></div>'+
+                '</div>';
+      }
+
+      function getFamilyHeadPhoto(){
+        return '<div class="form-group">'+
+                '<label class="control-label">Foto Kartu Keluarga</label>'+
+                '<br>'+
+                '<br>'+
+                '<input type="file" id="familyCardUpload" class="form-control">'+
+                '<img src="/images/no-image.png" id="kkPhoto" style="width:100%;display:block"/>'+
+            '</div>'+
+            '<div class="row form-group"><div class="col-md-12"><button id="savePhotoKK" class="btn btn-warning pull-right">Simpan Foto KK</button></div></div>'+
+            '<hr>';
+      }
+
+      function pendudukPersonalSave(){
+        var id = $('[name="id"]').val();
+        var resident = penduduk.doc(id);
+        resident.update({
+          agama:$('[name="religion"]').val(),
+          bidang_pekerjaan:$('[name="job_field"]').val(),
+          golongan_darah:$('[name="blood_type"]').val(),
+          jenis_kelamin:$('[name="gender"]').val(),
+          kecamatan:$('[name="district"]').val(),
+          kelurahan:$('[name="subdistrict"]').val(),
+          kewarganegaraan:$('[name="nationality"]').val(),
+          kirasan_penghasilan:$('[name="income"]').val(),
+          kota:$('[name="city"]').val(),
+          nama_lengkap:$('[name="name"]').val(),
+          pekerjaan:$('[name="job"]').val(),
+          pendidikan:$('[name="education"]').val(),
+          provinsi:$('[name="province"]').val(),
+          rt:$('[name="rt"]').val(),
+          rw:$('[name="rw"]').val(),
+          status_perkawinan:$('[name="marriage"]').val(),
+          tanggal_lahir:$('[name="birth_date"]').val(),
+          tempat_lahir:$('[name="birth_place"]').val()
+        }).then(function() {
+          alert('Data pribadi berhasil diubah');
+          $(location).attr('href','/penduduk-edit/'+id);
+        })
+        .catch(function(error) {
+          alert('Data pribadi gagal diubah, terjadi kesalahan teknis');
+          $(location).attr('href','/penduduk-edit/'+id);
+        });
+
+
+      }
+      function pendudukAssetSave(){
+        var id = $(document).find('[name="id"]').val();
+        var resident = penduduk.doc(id);
+        var asset = resident.collection('rumah').doc('data');
+        var goods = [];
+        $(document).find('[name="goods"]:checked').each(function(){
+          goods.push($(this).val());
+        });
+
+        console.log(goods);
+        var goodText ='';
+        goods.forEach((good)=>{
+          if(good){
+            goodText+=good+'|';
+          }
+        });
+        var scoreGoods = [];
+        $(document).find('[name="score_goods"]:checked').each(function(){
+          scoreGoods.push($(this).val());
+        });
+        var score_goodText ='';
+        scoreGoods.forEach(function(scoreGood){
+          if(scoreGood){
+            score_goodText+=scoreGood+'|';
+          }
+        });
+        var data = {
+          luas_lantai:$(document).find('[name="area"]').val(),
+          jenis_lantai:$(document).find('[name="floor"]').val(),
+          jenis_dinding:$(document).find('[name="wall"]').val(),
+          fasilitas:$(document).find('[name="facility"]').val(),
+          sumber_air:$(document).find('[name="water"]').val(),
+          sumber_penerangan:$(document).find('[name="electricity"]').val(),
+          bahan_bakar:$(document).find('[name="cooking"]').val(),
+          berapa_kali_sekali:$(document).find('[name="meal"]').val(),
+          berapa_kali_seminggu:$(document).find('[name="meat"]').val(),
+          berapa_kali_sepekan:$(document).find('[name="clothing"]').val(),
+          anggota_sakit:$(document).find('[name="sickness"]').val(),
+          list_barang:goodText,
+          kredit_usaha:$(document).find('[name="credit"]').val(),
+          status_bangunan:$(document).find('[name="house_status"]').val(),
+          skor_luas_lantai:$(document).find('[name="score_area"]').val(),
+          skor_jenis_lantai:$(document).find('[name="score_floor"]').val(),
+          skor_jenis_dinding:$(document).find('[name="score_wall"]').val(),
+          skor_fasilitas:$(document).find('[name="score_facility"]').val(),
+          skor_sumber_air:$(document).find('[name="score_water"]').val(),
+          skor_sumber_penerangan:$(document).find('[name="score_electricity"]').val(),
+          skor_bahan_bakar:$(document).find('[name="score_cooking"]').val(),
+          skor_berapa_kali_sekali:$(document).find('[name="score_meal"]').val(),
+          skor_berapa_kali_seminggu:$(document).find('[name="score_meat"]').val(),
+          skor_berapa_kali_sepekan:$(document).find('[name="score_clothing"]').val(),
+          skor_anggota_sakit:$(document).find('[name="score_sickness"]').val(),
+          skor_list_barang:score_goodText,
+          skor_kredit_usaha:$(document).find('[name="score_credit"]').val(),
+          skor_status_bangunan:$(document).find('[name="score_house_status"]').val(),
+        };
+        asset.update(data).then(function() {
+          alert('Data aset berhasil diubah');
+          $(location).attr('href','/penduduk-edit/'+id);
+        })
+        .catch(function(error) {
+          asset.set(data).then(function(){
+            alert('Data aset berhasil ditambahkan');
+            $(location).attr('href','/penduduk-edit/'+id);
+
+          }).catch(function(error){
+            console.log('Data aset gagal diubah/ditambahkan, terjadi kesalahan teknis');
+            $(location).attr('href','/penduduk-edit/'+id);
           });
-          return toAppend;
-        }
+        });
 
-        function getMapArea(coordinateText){
-          return '<div class="row form-group">'+
-                      '<input type="hidden" name="geolocation" value="'+coordinateText+'">'+
-                      '<label class="control-label col-md-12">Lokasi di Peta</label><br><br>'+
-                      '<div id="map" class="col-md-12"style="width:100%;height:300px"></div>'+
-                  '</div>';
-        }
+      }
 
-        function getFamilyHeadPhoto(){
-          return '<div class="form-group">'+
-                  '<label class="control-label">Foto Kartu Keluarga</label>'+
-                  '<br>'+
-                  '<br>'+
-                  '<input type="file" id="familyCardUpload" class="form-control">'+
-                  '<img src="/images/no-image.png" id="kkPhoto" style="width:100%;display:block"/>'+
-              '</div>'+
-              '<div class="row form-group"><div class="col-md-12"><button id="savePhotoKK" class="btn btn-warning pull-right">Simpan Foto KK</button></div></div>'+
-              '<hr>';
-        }
+      function pendudukDocumentSave(){
+        var id = $(document).find('[name="id"]').val();
+        var resident = penduduk.doc(id);
+        var documents = resident.collection('dokumen');
+        var provinsiDoc = $(document).find('[name="province"]').val();
+        var kotaDoc = $(document).find('[name="city"]').val();
+        var nomorKKDoc = $(document).find('[name="kk_number"]').val();
+        var kecDoc = $(document).find('[name="district"]').val();
+        var kelDoc = $(document).find('[name="subdistrict"]').val();
+        var rwDoc = $(document).find('[name="rw"]').val();
+        var rtDoc = $(document).find('[name="rt"]').val();
+        var alamatDoc = $(document).find('[name="address"]').val();
+        var geoDoc = $(document).find('[name="geolocation"]').val();
+
+        documents.get().then((querySnapshot)=>{
+          querySnapshot.forEach((doc)=>{
+            var doc_id = doc.id;
+            var kkPhoto = doc.data().foto_kk;
+            var coordinate = doc.data().koordinat;
+            var document = documents.doc(doc_id);
+            document.update({
+              provinsi:provinsiDoc,
+              nomor_kk:nomorKKDoc,
+              kota:kotaDoc,
+              kecamatan:kecDoc,
+              kelurahan:kelDoc,
+              rw:rwDoc,
+              rt:rtDoc,
+              alamat:alamatDoc,
+              foto_kk:kkPhoto,
+              koordinat:geoDoc
+            }).then(function(){
+              alert('Data dokumen berhasil diubah');
+              $(location).attr('href','/penduduk-edit/'+id);
+
+
+            }).catch(function(error){
+              alert('Data dokumen gagal diubah, terjadi kesalahan teknis');
+              $(location).attr('href','/penduduk-edit/'+id);
+
+            });
+
+          });
+        });
+      }
+
     </script>
 @endsection

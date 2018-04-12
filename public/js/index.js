@@ -69,39 +69,7 @@ function setCurrentUser(data){
     currentUser = data;
 }
 
-function pendudukPersonalSave(){
-  var id = $('[name="id"]').val();
-  var resident = penduduk.doc(id);
-  resident.update({
-    agama:$('[name="religion"]').val(),
-    bidang_pekerjaan:$('[name="job_field"]').val(),
-    golongan_darah:$('[name="blood_type"]').val(),
-    jenis_kelamin:$('[name="gender"]').val(),
-    kecamatan:$('[name="district"]').val(),
-    kelurahan:$('[name="subdistrict"]').val(),
-    kewarganegaraan:$('[name="nationality"]').val(),
-    kirasan_penghasilan:$('[name="income"]').val(),
-    kota:$('[name="city"]').val(),
-    nama_lengkap:$('[name="name"]').val(),
-    pekerjaan:$('[name="job"]').val(),
-    pendidikan:$('[name="education"]').val(),
-    provinsi:$('[name="province"]').val(),
-    rt:$('[name="rt"]').val(),
-    rw:$('[name="rw"]').val(),
-    status_perkawinan:$('[name="marriage"]').val(),
-    tanggal_lahir:$('[name="birth_date"]').val(),
-    tempat_lahir:$('[name="birth_place"]').val()
-  }).then(function() {
-    alert('Data pribadi berhasil diubah');
-    $(location).attr('href','/penduduk-edit/'+id);
-  })
-  .catch(function(error) {
-    alert('Data pribadi gagal diubah, terjadi kesalahan teknis');
-    $(location).attr('href','/penduduk-edit/'+id);
-  });
 
-
-}
 
 function anggotaPersonalSave(){
   var id = $('[name="id"]').val();
@@ -134,116 +102,7 @@ function anggotaPersonalSave(){
 
 }
 
-function pendudukAssetSave(){
-  var id = $(document).find('[name="id"]').val();
-  var resident = penduduk.doc(id);
-  var asset = resident.collection('rumah').doc('data');
-  var goods = [];
-  $(document).find('[name="goods"]:checked').each(function(){
-    goods.push($(this).val());
-  });
 
-  console.log(goods);
-  var goodText ='';
-  goods.forEach((good)=>{
-    if(good){
-      goodText+=good+'|';
-    }
-  });
-  var scoreGoods = [];
-  $(document).find('[name="score_goods"]:checked').each(function(){
-    scoreGoods.push($(this).val());
-  });
-  var score_goodText ='';
-  scoreGoods.forEach(function(scoreGood){
-    if(scoreGood){
-      score_goodText+=scoreGood+'|';
-    }
-  });
-  var data = {
-    luas_lantai:$(document).find('[name="area"]').val(),
-    jenis_lantai:$(document).find('[name="floor"]').val(),
-    jenis_dinding:$(document).find('[name="wall"]').val(),
-    fasilitas:$(document).find('[name="facility"]').val(),
-    sumber_air:$(document).find('[name="water"]').val(),
-    sumber_penerangan:$(document).find('[name="electricity"]').val(),
-    bahan_bakar:$(document).find('[name="cooking"]').val(),
-    berapa_kali_sekali:$(document).find('[name="meal"]').val(),
-    berapa_kali_seminggu:$(document).find('[name="meat"]').val(),
-    berapa_kali_sepekan:$(document).find('[name="clothing"]').val(),
-    anggota_sakit:$(document).find('[name="sickness"]').val(),
-    list_barang:goodText,
-    kredit_usaha:$(document).find('[name="credit"]').val(),
-    status_bangunan:$(document).find('[name="house_status"]').val(),
-    skor_luas_lantai:$(document).find('[name="score_area"]').val(),
-    skor_jenis_lantai:$(document).find('[name="score_floor"]').val(),
-    skor_jenis_dinding:$(document).find('[name="score_wall"]').val(),
-    skor_fasilitas:$(document).find('[name="score_facility"]').val(),
-    skor_sumber_air:$(document).find('[name="score_water"]').val(),
-    skor_sumber_penerangan:$(document).find('[name="score_electricity"]').val(),
-    skor_bahan_bakar:$(document).find('[name="score_cooking"]').val(),
-    skor_berapa_kali_sekali:$(document).find('[name="score_meal"]').val(),
-    skor_berapa_kali_seminggu:$(document).find('[name="score_meat"]').val(),
-    skor_berapa_kali_sepekan:$(document).find('[name="score_clothing"]').val(),
-    skor_anggota_sakit:$(document).find('[name="score_sickness"]').val(),
-    skor_list_barang:score_goodText,
-    skor_kredit_usaha:$(document).find('[name="score_credit"]').val(),
-    skor_status_bangunan:$(document).find('[name="score_house_status"]').val(),
-  };
-  asset.update(data).then(function() {
-    alert('Data aset berhasil diubah');
-    $(location).attr('href','/penduduk-edit/'+id);
-  })
-  .catch(function(error) {
-    asset.set(data).then(function(){
-      alert('Data aset berhasil ditambahkan');
-      $(location).attr('href','/penduduk-edit/'+id);
-
-    }).catch(function(error){
-      console.log('Data aset gagal diubah/ditambahkan, terjadi kesalahan teknis');
-      $(location).attr('href','/penduduk-edit/'+id);
-    });
-  });
-
-}
-
-function pendudukDocumentSave(){
-  var id = $(document).find('[name="id"]').val();
-  var resident = penduduk.doc(id);
-  var documents = resident.collection('dokumen');
-
-  documents.get().then((querySnapshot)=>{
-    querySnapshot.forEach((doc)=>{
-      var doc_id = doc.id;
-      var kkPhoto = doc.data().foto_kk;
-      var coordinate = doc.data().koordinat;
-      var document = documents.doc(doc_id);
-      alert($(document).find('[name="kk_number"]').val());
-      document.update({
-        nomor_kk:$(document).find('[name="kk_number"]').val(),
-        provinsi:$(document).find('[name="province"]').val(),
-        kota:$(document).find('[name="city"]').val(),
-        kecamatan:$(document).find('[name="district"]').val(),
-        kelurahan:$(document).find('[name="subdistrict"]').val(),
-        rw:$(document).find('[name="rw"]').val(),
-        rt:$(document).find('[name="rt"]').val(),
-        alamat:$(document).find('[name="address"]').val(),
-        foto_kk:kkPhoto,
-        koordinat:$(document).find('[name="geolocation"]').val()
-      }).then(function(){
-        alert('Data aset berhasil diubah');
-        $(location).attr('href','/penduduk-edit/'+id);
-
-
-      }).catch(function(error){
-        alert('Data aset gagal diubah, terjadi kesalahan teknis');
-        $(location).attr('href','/penduduk-edit/'+id);
-
-      });
-
-    });
-  });
-}
 
 function saveUser(){
    var fullname=$('[name="full_name"]').val();
