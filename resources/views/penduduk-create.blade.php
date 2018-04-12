@@ -129,7 +129,7 @@
                   {title:'Status Perkawinan', options:optionObject.marriage,name:'marriage'},
                   {title:'Tempat Lahir', name:'birth_place'},
                   {title:'Tanggal Lahir', name:'birth_date'},
-                  {title:'Provinsi', name:'province', options:['Dki Jakarta']},
+                  {title:'Provinsi', name:'province', options:['DKI Jakarta']},
                   {title:'Kota/Kabupaten', name:'city', options:['Kab. Kepulauan Seribu']},
                   {title:'Kecamatan', name:'district', options:districtOption},
                   {title:'Kelurahan', name:'subdistrict',options:subdistrictOptionS},

@@ -3,7 +3,7 @@ var count;
 var total_score;
 var final_score;
 
-kekumuhan.where('provinsi','==','Dki Jakarta').where('kota','==','Kab. Kepulauan Seribu').where('status','==',true).get().then(function(snapshot){
+kekumuhan.where('provinsi','==','DKI Jakarta').where('kota','==','Kab. Kepulauan Seribu').where('status','==',true).get().then(function(snapshot){
 	count=0;
 	total_score=0;
 	snapshot.forEach(function(doc){

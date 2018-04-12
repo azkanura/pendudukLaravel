@@ -41,7 +41,7 @@
                         </label>
                         <div class="col-md-6">
                             <select name="province" class="form-control" required id="selectProvince">
-                                <option value="">Loading data...</option>
+                                <option value="DKI Jakarta">DKI Jakarta</option>
                            </select>
                        </div>
                     </div>
@@ -51,7 +51,7 @@
                         </label>
                         <div class="col-md-6">
                             <select name="city" class="form-control" required id="selectCity">
-                                <option value="">Loading data...</option>
+                                <option value="Kab. Kepulauan Seribu">Kab. Kepulauan Seribu</option>
                            </select>
                        </div>
                     </div>
@@ -61,7 +61,8 @@
                         </label>
                         <div class="col-md-6">
                             <select name="district" class="form-control" required id="selectDistrict">
-                                <option value="">Loading data...</option>
+                                <option value="Kepulauan Seribu Selatan">Kepulauan Seribu Selatan</option>
+                                <option value="Kepulauan Seribu Utara">Kepulauan Seribu Utara</option>
                            </select>
                        </div>
                     </div>
@@ -228,7 +229,7 @@
                         <small>Dalam satuan Jiwa</small>
                     </div>
                 </div>
-            </div>                    
+            </div>
         </div>
         <div class="col-md-6">
             <div class="panel-body">
@@ -740,7 +741,7 @@
                     });
 
                 });
-                
+
             }
 
             else{

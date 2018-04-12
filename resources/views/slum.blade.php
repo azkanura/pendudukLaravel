@@ -35,7 +35,7 @@
         var selectProvince = $('#selectProvince');
         var selectCity = $('#selectCity');
         var dataContainer = $('#dataContainer');
-        var province='Dki Jakarta';
+        var province='DKI Jakarta';
         var city='Kab. Kepulauan Seribu';
 
         kekumuhan.where('provinsi','==',province).where('kota','==',city).where('status','==',true).get().then(function(query){

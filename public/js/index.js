@@ -159,7 +159,7 @@ function saveUser(){
    });
 }
 
-// var clauseArray = [{title:'provinsi',content:'Dki Jakarta'},{title:'kota',content:' Kab. Kepulauan Seribu'},{title:'kecamatan',content:'Kepulauan Seribu Selatan'}];
+// var clauseArray = [{title:'provinsi',content:'DKI Jakarta'},{title:'kota',content:' Kab. Kepulauan Seribu'},{title:'kecamatan',content:'Kepulauan Seribu Selatan'}];
 
 // function whereClause(clauseArray){
 //   var target = penduduk;

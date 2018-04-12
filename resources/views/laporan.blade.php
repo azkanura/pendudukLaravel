@@ -77,7 +77,7 @@
         var countMale=0;
         var countFemale=0;
 
-        var provinsi='Dki Jakarta';
+        var provinsi='DKI Jakarta';
         var kota='Kab. Kepulauan Seribu';
 
         kekumuhan.where('provinsi','==',provinsi).where('kota','==',kota).where('status','==',true).get().then(function(snapshot){

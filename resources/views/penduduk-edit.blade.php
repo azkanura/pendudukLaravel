@@ -300,7 +300,7 @@ async defer></script>
                         {title:'Status Perkawinan', name:'marriage', content:marriage,options:optionObject.marriage},
                         {title:'Tempat Lahir', name:'birth_place', content:birthPlace},
                         {title:'Tanggal Lahir', name:'birth_date', content:birthDate},
-                        {title:'Provinsi', name:'province', content:province,options:['Dki Jakarta']},
+                        {title:'Provinsi', name:'province', content:province,options:['DKI Jakarta']},
                         {title:'Kota/Kabupaten', name:'city', content:city,options:['Kab. Kepulauan Seribu']},
                         {title:'Kecamatan', name:'district', content:district,options:districtOption},
                         {title:'Kelurahan', name:'subdistrict', content:subdistrict,options:subdistrictOption},
@@ -1063,7 +1063,7 @@ async defer></script>
              var options='';
              switch(item.name){
                case 'province':
-                  options+='<option selected>Dki Jakarta</option>';
+                  options+='<option selected>DKI Jakarta</option>';
                   break;
                case 'city':
                   options+='<option selected>Kab. Kepulauan Seribu</option>';
