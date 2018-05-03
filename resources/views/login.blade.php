@@ -77,8 +77,9 @@
 
     @media (min-width: 544px) {
       .page-signin-container {
-        width: 350px;
-        margin: 10% auto;
+        width: 440px;
+        margin: 3% auto;
+        padding:50px
       }
     }
 
@@ -103,36 +104,46 @@
 </head>
 <body>
   <div class="page-signin-header p-a-2 text-sm-center bg-white">
-    <a class="px-demo-brand px-demo-brand-lg text-default" href="/">Penduduk App</a>
+    <img src='{{asset("images/logo-kepseribu.png")}}' style='width:150px;padding:10px;margin-right:300px;'/>
+    <a class="px-demo-brand px-demo-brand-lg text-default" href="/" style='font-size:'>Aplikasi Penduduk | Kepulauan Seribu</a>
+    <img src='{{asset("images/logo-nr.png")}}' style='width:300px;padding:10px;margin-left:150px'/>
     <!-- <a href="about.html" class="btn btn-primary">Tentang</a> -->
   </div>
 
   <!-- Sign In form -->
+  <div class='col-md-6'>
+    <iframe style='margin:5%;border-radius:5px' width="95%" height="360" src="https://www.youtube.com/embed/bsIGRhXwgPw?rel=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+  </div>
+  <div class='col-md-6'>
+    <div style='margin:9% auto 2%;text-align:center'>
+      <!-- <img src='{{asset("images/logo-kepseribu.png")}}' style='width:140px;padding:10px'/>
+      <img src='{{asset("images/logo-nr.png")}}' style='width:282px;padding:10px'/> -->
+    </div>
+    <div class="page-signin-container" id="page-signin-form">
+      <h2 class="m-t-0 m-b-4 text-xs-center font-weight-semibold font-size-20" style="color: #fff;" >Sign In to your Account</h2>
 
-  <div class="page-signin-container" id="page-signin-form">
-    <h2 class="m-t-0 m-b-4 text-xs-center font-weight-semibold font-size-20" style="color: #fff;" >Sign In to your Account</h2>
+      <!-- <form action="/" class="panel p-a-4"> -->
+        <fieldset class=" form-group form-group-lg">
+          <input type="text" name="email" class="form-control" placeholder="Username or Email">
+        </fieldset>
 
-    <!-- <form action="/" class="panel p-a-4"> -->
-      <fieldset class=" form-group form-group-lg">
-        <input type="text" name="email" class="form-control" placeholder="Username or Email">
-      </fieldset>
+        <fieldset class=" form-group form-group-lg">
+          <input type="password" name="password" class="form-control" placeholder="Password">
+        </fieldset>
 
-      <fieldset class=" form-group form-group-lg">
-        <input type="password" name="password" class="form-control" placeholder="Password">
-      </fieldset>
+        <div class="clearfix">
+          <!-- <label class="custom-control custom-checkbox pull-xs-left">
+            <input type="checkbox" class="custom-control-input">
+            <span class="custom-control-indicator"></span>
+            Remember me
+          </label>
+          <a href="" class="font-size-12 text-muted pull-xs-right" id="page-signin-forgot-link">Forgot your password?</a> -->
+        </div>
 
-      <div class="clearfix">
-        <!-- <label class="custom-control custom-checkbox pull-xs-left">
-          <input type="checkbox" class="custom-control-input">
-          <span class="custom-control-indicator"></span>
-          Remember me
-        </label>
-        <a href="" class="font-size-12 text-muted pull-xs-right" id="page-signin-forgot-link">Forgot your password?</a> -->
-      </div>
+        <a class="btn btn-block btn-lg btn-primary m-t-3" id="loginBtn">Sign In</a>
+      <!-- </form> -->
 
-      <a class="btn btn-block btn-lg btn-primary m-t-3" id="loginBtn">Sign In</a>
-    <!-- </form> -->
-
+    </div>
   </div>
 
   <!-- / Sign In form -->

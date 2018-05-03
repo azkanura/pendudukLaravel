@@ -159,13 +159,20 @@
                 </ul>
             </li>
 
+
         </ul>
+        <img src="{{asset('images/logo-kepseribu.png')}}" style='width:60%;display:block;margin:40px auto 10px'/>
+        <img src="{{asset('images/logo-nr.png')}}" style='width:60%;display:block;margin:10px auto'/>
     </nav>
 
     <!-- Navbar -->
     <nav class="navbar px-navbar">
         <div class="navbar-header">
-            <a class="navbar-brand" href="{{url('/')}}">Penduduk App</a>
+            <a class="navbar-brand" href="{{url('/')}}">
+              Penduduk App
+              <!-- <img src="{{asset('images/logo-kepseribu.png')}}" style='height:20px;margin-right:10px;margin-top:5px'/>
+              <img src="{{asset('images/logo-nr.png')}}" style='height:20px;margin-right:10px;margin-top:5px'/> -->
+            </a>
         </div>
 
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#px-navbar-collapse" aria-expanded="false">
@@ -180,6 +187,10 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
+                <!-- <li>
+                  <img src="{{asset('images/logo-kepseribu.png')}}" style='height:40px;margin-right:10px;margin-top:5px'/>
+                  <img src="{{asset('images/logo-nr.png')}}" style='height:40px;margin-right:10px;margin-top:5px'/>
+                </li> -->
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         <img src="/demo/avatars/account.png" alt="" class="px-navbar-image profile-picture">
