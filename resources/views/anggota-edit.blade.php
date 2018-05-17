@@ -130,6 +130,11 @@
                     if(data.nama_lengkap){
                       name = data.nama_lengkap;
                     }
+
+                    var nik='';
+                    if(data.nik){
+                      nik = data.nik;
+                    }
                     // $('#profileName').html(name+'<span class="font-weight-normal">\'s profile</span>');
 
                     var gender = '';
@@ -203,6 +208,7 @@
 
                     var arrayData = [
                         {title:'Nama Lengkap', content:name,name:'name'},
+                        {title:'NIK', content:nik,name:'nik'},
                         {title:'Jenis Kelamin', content:gender,options:optionObject.gender,name:'gender'},
                         {title:'Status dalam Keluarga', content:status,options:optionObject.status,name:'status'},
                         {title:'Kisaran Penghasilan', content:income,options:optionObject.income,name:'income'},

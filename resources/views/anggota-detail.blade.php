@@ -146,6 +146,11 @@
                     if(data.nama_lengkap){
                       name = data.nama_lengkap;
                     }
+
+                    var nik='';
+                    if(data.nik){
+                      nik = data.nik;
+                    }
                     // $('#profileName').html(name+'<span class="font-weight-normal">\'s profile</span>');
 
                     var gender = '';
@@ -219,6 +224,7 @@
 
                     var arrayData = [
                         {title:'Nama Lengkap', content:name},
+                        {title:'NIK', content:nik},
                         {title:'Jenis Kelamin', content:gender},
                         {title:'Kisaran Penghasilan', content:income},
 

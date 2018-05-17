@@ -162,6 +162,7 @@
 
         </ul>
         <img src="{{asset('images/logo-kepseribu.png')}}" style='width:60%;display:block;margin:40px auto 10px'/>
+        <hr style='border-color:#dfe4e6'/>
         <img src="{{asset('images/logo-nr.png')}}" style='width:60%;display:block;margin:10px auto'/>
     </nav>
 

@@ -106,10 +106,11 @@
         };
 
         $('#profileInfoBtn').on('click',function(){
-              var name,gender ,status ,income ,jobField ,bloodType ,job,education ,nationality,marriage ,birthPlace ,birthDate ,religion ='';
+              var name,nik,gender ,status ,income ,jobField ,bloodType ,job,education ,nationality,marriage ,birthPlace ,birthDate ,religion ='';
 
               var arrayData = [
                   {title:'Nama Lengkap', name:'name'},
+                  {title:'NIK', name:'nik'},
                   {title:'Jenis Kelamin', options:optionObject.gender,name:'gender'},
                   {title:'Status dalam Keluarga',options:optionObject.status,name:'status'},
                   {title:'Kisaran Penghasilan', options:optionObject.income,name:'income'},
@@ -222,6 +223,7 @@
         function saveData(){
           penduduk.doc(kkId).collection('anggota').add({
             agama:$(document).find('[name="religion"]').val(),
+            nik:$(document).find('[name="nik"]').val(),
             bidang_pekerjaan:$(document).find('[name="job_field"]').val(),
             foto_ktp:idName,
             foto_orang:ppName,

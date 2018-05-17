@@ -197,6 +197,11 @@ async defer></script>
                     if(data.nama_lengkap){
                       name = data.nama_lengkap;
                     }
+
+                    var nik='';
+                    if(data.nik){
+                      nik = data.nik;
+                    }
                     // $('#profileName').html(name+'<span class="font-weight-normal">\'s profile</span>');
 
                     var gender = '';
@@ -286,6 +291,7 @@ async defer></script>
                     }
                     var arrayData = [
                         {title:'Nama Lengkap',name:'name', content:name},
+                        {title:'NIK',name:'nik', content:nik},
                         {title:'Jenis Kelamin', name:'gender',content:gender,options:optionObject.gender},
                         {title:'Kisaran Penghasilan', name:'income',content:income,options:optionObject.income},
                         {title:'Bidang Pekerjaan', name:'job_field',content:jobField,options:optionObject.jobField},
@@ -1151,6 +1157,7 @@ async defer></script>
         var resident = penduduk.doc(id);
         resident.update({
           agama:$('[name="religion"]').val(),
+          nik:$('[name="nik"]').val(),
           bidang_pekerjaan:$('[name="job_field"]').val(),
           golongan_darah:$('[name="blood_type"]').val(),
           jenis_kelamin:$('[name="gender"]').val(),

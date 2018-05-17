@@ -77,6 +77,7 @@ function anggotaPersonalSave(){
   var resident = penduduk.doc(kkId).collection('anggota').doc(id);
   resident.update({
     agama:$('[name="religion"]').val(),
+    nik:$('[name="nik"]').val(),
     bidang_pekerjaan:$('[name="job_field"]').val(),
     golongan_darah:$('[name="blood_type"]').val(),
     jenis:$('[name="status"]').val(),
